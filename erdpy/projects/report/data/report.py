@@ -28,9 +28,12 @@ class Report:
 
     @staticmethod
     def load_from_file(report_json_path: Path) -> 'Report':
-        with open(report_json_path, 'r') as report_file:
-            report_json = json.load(report_file)
-            return Report.from_json(report_json)
+        try:
+            with open(report_json_path, 'r') as report_file:
+                report_json = json.load(report_file)
+                return Report.from_json(report_json)
+        except FileNotFoundError:
+            return Report([], [])
 
     def get_markdown_rows(self, format_options: FormatOptions) -> List[List[str]]:
         rows = [folder_report.get_markdown_rows(format_options) for folder_report in self.folders]
