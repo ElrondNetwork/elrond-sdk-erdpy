@@ -57,14 +57,14 @@ class TransactionsTestCase(MyTestCase):
         transaction.gasPrice = 1000000000
         transaction.gasLimit = 50000
         transaction.data = ""
-        transaction.chainID = "local-testnet"
+        transaction.chainID = "localnet"
         transaction.version = 1
 
         serialized = transaction.serialize().decode()
-        self.assertEqual("""{"nonce":89,"value":"0","receiver":"erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx","sender":"erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th","senderUsername":"YWxpY2U=","receiverUsername":"Ym9i","gasPrice":1000000000,"gasLimit":50000,"chainID":"local-testnet","version":1}""", serialized)
+        self.assertEqual("""{"nonce":89,"value":"0","receiver":"erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx","sender":"erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th","senderUsername":"YWxpY2U=","receiverUsername":"Ym9i","gasPrice":1000000000,"gasLimit":50000,"chainID":"localnet","version":1}""", serialized)
         
         transaction.sign(self.alice)
-        self.assertEqual("1bed82c3f91c9d24f3a163e7b93a47453d70e8743201fe7d3656c0214569566a76503ef0968279ac942ca43b9c930bd26638dfb075a220ce80b058ab7bca140a", transaction.signature)    
+        self.assertEqual("f872ea6d43b86ba6b22a7f62319a972124fc6dbd6b0743fa6465819a14d7a90100be865affb030bddf7ed86e648236cd20b1d5078e805b5419d43f3c5032b006", transaction.signature)    
 
     def test_serialize_transaction_as_inner(self):
         transaction = Transaction()

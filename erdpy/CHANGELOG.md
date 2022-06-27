@@ -7,6 +7,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
  - TBD
 
+## [2.1.0]
+ - [Update localnet](https://github.com/ElrondNetwork/elrond-sdk-erdpy/pull/141)
+
 ## [2.0.0]
  - [Show password prompt if no passfile specificied](https://github.com/ElrondNetwork/elrond-sdk-erdpy/pull/144)
 

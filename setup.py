@@ -3,7 +3,7 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = "https://github.com/ElrondNetwork/elrond-sdk-erdpy"
 
-VERSION = "2.0.0"
+VERSION = "2.1.0"
 
 try:
     with open('./erdpy/_version.py', 'wt') as versionfile:

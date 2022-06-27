@@ -41,8 +41,9 @@ class TestnetConfiguration:
     shards: Dict[str, Any]
     features: Dict[str, Any]
     timing: Dict[str, Any]
+    systemSmartContracts: Dict[str, Any]
 
-    def __init__(self, config):
+    def __init__(self, config: Dict[str, Any]):
         self.config = config
         self.folders = dict()
         self.networking = dict()
@@ -50,6 +51,7 @@ class TestnetConfiguration:
         self.shards = dict()
         self.features = dict()
         self.timing = dict()
+        self.systemSmartContracts = dict()
 
         sdk_folder = workstation.get_tools_folder()
 
@@ -88,6 +90,7 @@ class TestnetConfiguration:
         self.shards.update(self.config.get('shards', dict()))
         self.features.update(self.config.get('features', dict()))
         self.timing.update(self.config.get('timing', dict()))
+        self.systemSmartContracts.update(self.config.get('systemSmartContracts', dict()))
 
     @classmethod
     def from_file(cls, filename: str):
@@ -156,6 +159,9 @@ class TestnetConfiguration:
 
     def genesis_time(self):
         return int(time.time()) + int(self.timing['genesis_delay'])
+
+    def rounds_per_epoch(self):
+        return self.timing['rounds_per_epoch']
 
     def seednode_folder(self):
         testnet = self.root()
@@ -301,7 +307,7 @@ class TestnetConfiguration:
 
     @classmethod
     def default(cls):
-        config = dict()
+        config: Dict[str, Any] = dict()
         config['features'] = {
             'loglevel': '*:DEBUG',
             'proxy': True,
@@ -336,6 +342,7 @@ class TestnetConfiguration:
             'validators_per_shard': 1,
         }
         config['timing'] = {
+            'rounds_per_epoch': 50,
             'genesis_delay': 10
         }
 

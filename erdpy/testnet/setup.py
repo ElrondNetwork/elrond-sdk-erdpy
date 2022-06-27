@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 import shutil
 from os import path
 from typing import Any
@@ -96,6 +97,17 @@ def copy_config_to_nodes(testnet_config: TestnetConfiguration):
     for node_config in testnet_config.all_nodes_config_folders():
         shutil.copytree(config_source, node_config)
 
+        # Overwrite files when applicable
+        overwrites_folder_name = "localnet-node-config"
+        sdk_overwrites = workstation.get_tools_folder() / overwrites_folder_name
+        cwd_overwrites = Path() / overwrites_folder_name
+        if sdk_overwrites.exists():
+            logger.info(f"Overwrite configuration with {sdk_overwrites.absolute()}")
+            shutil.copytree(sdk_overwrites, node_config, dirs_exist_ok=True)
+        if cwd_overwrites.exists():
+            logger.info(f"Overwrite configuration with {cwd_overwrites.absolute()}")
+            shutil.copytree(cwd_overwrites, node_config, dirs_exist_ok=True)
+
 
 def copy_validator_keys(testnet_config: TestnetConfiguration):
     for index, validator in enumerate(testnet_config.validators()):
@@ -118,15 +130,6 @@ def patch_node_config(testnet_config: TestnetConfiguration):
         node_config_toml.patch_api(data, testnet_config)
         utils.write_toml_file(api_config_file, data)
 
-        system_sc_config_file = node_config / 'systemSmartContractsConfig.toml'
-        data = utils.read_toml_file(system_sc_config_file)
-        node_config_toml.patch_system_smart_contracts(data, testnet_config)
-        utils.write_toml_file(system_sc_config_file, data)
-
-        enable_epochs_config_file = node_config / 'enableEpochs.toml'
-        data = utils.read_toml_file(enable_epochs_config_file)
-        node_config_toml.patch_enable_epochs(data, testnet_config)
-        utils.write_toml_file(enable_epochs_config_file, data)
 
         genesis_smart_contracts_file = node_config / 'genesisSmartContracts.json'
         data = utils.read_json_file(genesis_smart_contracts_file)
@@ -180,21 +183,9 @@ def copy_config_to_proxy(testnet_config: TestnetConfiguration):
     proxy_config = testnet_config.proxy_config_folder()
     makefolder(proxy_config)
 
-    shutil.copy(
-        proxy_config_source / 'config.toml',
-        proxy_config)
-
-    shutil.copytree(
-        proxy_config_source / 'apiConfig',
-        proxy_config / 'apiConfig')
-
-    shutil.copy(
-        proxy_config_source / 'external.toml',
-        proxy_config)
-
-    shutil.copy(
-        proxy_config_source / 'economics.toml',
-        proxy_config)
+    shutil.copy(proxy_config_source / 'config.toml', proxy_config)
+    shutil.copytree(proxy_config_source / 'apiConfig', proxy_config / 'apiConfig')
+    shutil.copy(proxy_config_source / 'external.toml', proxy_config)
 
 
 def patch_proxy_config(testnet_config: TestnetConfiguration):

@@ -13,7 +13,7 @@ USERS=~/elrondsdk/testwallets/latest/users
 VALIDATORS=~/elrondsdk/testwallets/latest/validators
 DENOMINATION="000000000000000000"
 PROXY="http://localhost:7950"
-CHAIN_ID="local-testnet"
+CHAIN_ID="localnet"
 
 cleanSandbox() {
     rm -rf ${SANDBOX}

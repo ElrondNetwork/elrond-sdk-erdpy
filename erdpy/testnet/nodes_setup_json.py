@@ -5,7 +5,7 @@ from erdpy.testnet import wallets
 from erdpy.testnet.config import TestnetConfiguration
 from erdpy.testnet.genesis import get_delegation_address, is_foundational_node
 
-CHAIN_ID = "local-testnet"
+CHAIN_ID = "localnet"
 
 
 def build(testnet_config: TestnetConfiguration) -> Any:

@@ -169,7 +169,7 @@ def get_defaults() -> Dict[str, Any]:
         "dependencies.elrond_proxy_go.tag": "latest",
         "dependencies.elrond_proxy_go.urlTemplate.linux": "https://github.com/ElrondNetwork/elrond-proxy-go/archive/{TAG}.tar.gz",
         "dependencies.elrond_proxy_go.urlTemplate.osx": "https://github.com/ElrondNetwork/elrond-proxy-go/archive/{TAG}.tar.gz",
-        "dependencies.golang.tag": "go1.15.2",
+        "dependencies.golang.tag": "go1.17.6",
         "dependencies.golang.urlTemplate.linux": "https://golang.org/dl/{TAG}.linux-amd64.tar.gz",
         "dependencies.golang.urlTemplate.osx": "https://golang.org/dl/{TAG}.darwin-amd64.tar.gz",
         "dependencies.mcl_signer.tag": "latest",
