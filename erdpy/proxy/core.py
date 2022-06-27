@@ -48,10 +48,10 @@ class ElrondProxy(IElrondProxy):
             transaction["data"] = data
         return transactions
 
-    def get_esdt_tokens(self, address: str) -> List:
+    def get_esdt_tokens(self, address: str) -> List[Any]:
         response = do_get(f"{self.url}/address/{address}/esdt")
         esdts = response.get("esdts")
-        return cast(List, esdts)
+        return cast(List[Any], esdts)
 
     def get_esdt_balance(self, address: str, ticker: str) -> dict:
         response = do_get(f"{self.url}/address/{address}/esdt/{ticker}")
@@ -139,7 +139,7 @@ class ElrondProxy(IElrondProxy):
         response = do_get(url)
         return TransactionOnNetwork(tx_hash, response)
 
-    def get_hyperblock(self, key) -> Any:
+    def get_hyperblock(self, key: Union[str, int]) -> Any:
         url = f"{self.url}/hyperblock/by-hash/{key}"
         if str(key).isnumeric():
             url = f"{self.url}/hyperblock/by-nonce/{key}"

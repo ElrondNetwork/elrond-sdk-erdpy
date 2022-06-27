@@ -1,3 +1,4 @@
+from binascii import unhexlify
 import logging
 from pathlib import Path
 from typing import Any, Optional
@@ -54,6 +55,9 @@ class Account(IAccount):
         assert isinstance(signature, bytes)
 
         return signature.hex()
+
+    def get_secret_key(self) -> bytes:
+        return unhexlify(self.secret_key)
 
 
 class LedgerAccount(Account):
@@ -131,6 +135,14 @@ class Address(IAddress):
 
     def __repr__(self):
         return self.bech32()
+    
+    def __eq__(self, other: Any):
+        if isinstance(other, Address):
+            return self._value_hex == other._value_hex
+        return NotImplemented
+
+    def __hash__(self):
+        return hash(self._value_hex)
 
     @classmethod
     def zero(cls) -> 'Address':

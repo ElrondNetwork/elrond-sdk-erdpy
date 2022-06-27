@@ -42,6 +42,9 @@ class ITransaction(ISerializable):
 class IAccount:
     def sign_transaction(self, transaction: ITransaction) -> str:
         return ""
+    
+    def get_secret_key(self) -> bytes:
+        return bytes()
 
 
 class ITransactionOnNetwork(ISerializable):
